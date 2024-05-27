@@ -46,6 +46,7 @@ namespace CGL {
   void RasterizerImp::rasterize_line(float x0, float y0,
     float x1, float y1,
     Color color) {
+    
     if (x0 > x1) {
       swap(x0, x1); swap(y0, y1);
     }
@@ -64,17 +65,48 @@ namespace CGL {
       pt[0] += dpt[0]; pt[1] += dpt[1];
     }
   }
-
+  void isIn
   // Rasterize a triangle.
   void RasterizerImp::rasterize_triangle(float x0, float y0,
     float x1, float y1,
     float x2, float y2,
     Color color) {
+    //does it 
+    //sort triangle vertices by left to right order of x axis, this -
     // TODO: Task 1: Implement basic triangle rasterization here, no supersampling
+     
 
-    // TODO: Task 2: Update to implement super-sampled rasterization
+      int farthest_left = (int)floor(std::min({ x0,x1,x2 }));
+      int farthest_right = (int)floor(std::max({ x0,x1,x2 }));
+      int farthest_up = (int)floor(std::min({ y0,y1,y2}));
+      int farthest_down = (int)floor(std::max({ y0,y1,y2 }));
+      float edge1_x = x1 - x0;
+      float edge1_y = y1 - y0;
+      float edge2_x = x2 - x0;
+      float edge2_y = y2 - y0;
+      
+      //STEP TWO, enumerate all pixels and check in triangle
+
+      for (int i = farthest_left; i < farthest_right; i++) {
+          for (int j = farthest_up; j < farthest_down; j++) {
+              float sample_x = i + 0.5;
+              float sample_y = j + 0.5;
+              float px = sample_x - x0;
+              float py = sample_y - y0;
+              
+                  
+                  /*
+              if(( - y0 * sample_x + x0 * sample_y)<=0
+                && ( - y1 * sample_x + x1 * sample_y) <= 0
+                  && (- y2 * sample_x + x2 * sample_y) <= 0){
+                  rasterize_point(i, j, color);
+                  }*/
+            }
 
 
+      }
+         
+        
 
   }
 
